@@ -17,10 +17,11 @@ ALL_LINUX = linux-amd64 \
 	linux-mips64 \
 	linux-mips64le \
 	linux-mips-softfloat
-
+ALL_FREEBSD = freebsd-amd64 \
+	freebsd-arm64
 ALL = $(ALL_LINUX) \
 	darwin-amd64 \
-	freebsd-amd64 \
+	$(ALL_FREEBSD) \
 	windows-amd64
 
 all: $(ALL:%=build/%/nebula) $(ALL:%=build/%/nebula-cert)
@@ -29,7 +30,7 @@ release: $(ALL:%=build/nebula-%.tar.gz)
 
 release-linux: $(ALL_LINUX:%=build/nebula-%.tar.gz)
 
-release-freebsd: build/nebula-freebsd-amd64.tar.gz
+release-freebsd: $(ALL_FREEBSD:%=build/nebula-%.tar.gz)
 
 bin-windows: build/windows-amd64/nebula.exe build/windows-amd64/nebula-cert.exe
 	mv $? .
